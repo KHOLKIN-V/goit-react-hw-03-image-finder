@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 // import { ToastContainer } from 'react-toastify';
-// import Loader from "react-loader-spinner";
+import Loader from "react-loader-spinner";
 // import { nanoid } from 'nanoid';
 
 import cs from './App.module.css';
 import fetchApi from "./service/fetchApi";
 import Searchbar from './components/Searchbar/Searchbar';
-// import ImageGallery from './components/ImageGallery/ImageGallery';
+import ImageGallery from './components/ImageGallery/ImageGallery';
 import Button from './components/Button/Button';
 // import Modal from './components/Modal/Modal';
 
@@ -18,7 +18,7 @@ class App extends Component {
     searchQuery: '',
     overview: '',
     page: 1,
-    // error: "",
+    error: "",
 
     // loading: false,
     // modal: false,
@@ -34,33 +34,42 @@ class App extends Component {
     const query = this.state.searchQuery;
     const page = this.state.page;
 
-    this.setState({status: 'pending'});
-
     if (prevQuery !== query) {
+      
       this.setState({ images: [] });
       this.getImages(query, page);
     }
+
+    // if (prevPage !== page && prevPage < page) {
+    //   this.getImages(query, page);
+    // }
   }
 
   getImages = (query, page) => {
+    this.setState({status: 'pending'});
     fetchApi(query, page)
     .then((hits) => {
       this.setState(prevState => ({
         images: [...prevState.images, ...hits],
+        page: prevState.page + 1,
         status: 'resolved',
       }));
     console.log(hits);
     })
-  //   .catch(({message}) => this.setState({ error: message, status: 'rejected' }))
-  //   .finally(() => {
-  //     window.scrollTo({
-  //       top: document.documentElement.scrollHeight,
-  //       behavior: "smooth",
-  //     });
-  //     this.setState(prevState => ({ page: prevState.page + 1 }));
-  //   });
-    };
+    .catch(({message}) => this.setState({ error: message, status: 'rejected' }))
+    .finally(() => {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth",
+      });
+    });
+  };
 
+  loadMore = e => {
+    e.preventDefault();
+    const {searchQuery, page} = this.state;
+    this.getImages(searchQuery, page);
+  }
 
   formSubmit = query => {
     this.setState({searchQuery: query, page: 1});
@@ -78,14 +87,14 @@ class App extends Component {
   }
   
   render() {
-    // const {status, error, searchQuery} = this.state;
+    const {status, images, error, page} = this.state;
 
     return (
       <>
       <div className={cs.App}>
         <Searchbar onSubmit={this.formSubmit}/>
-        {/* {(status === 'idle') &&
-          <div>Введите название</div>
+        {(status === 'idle') &&
+          <div style={{fontWeight: '500', fontSize: '30px', textAlign: 'center'}}>Введите название</div>
         }
         {(status === "pending") && 
           <Loader
@@ -97,16 +106,17 @@ class App extends Component {
           />
         }
         {(status === 'rejected') &&
-          <div>{error}</div>
-        } */}
-        {/* {(status === 'resolved') && 
-          <ImageGallery onSearch={searchQuery} onOpenImage={this.openImage}/>
-        } */}
-
+          <div style={{fontWeight: '700', fontSize: '50px', textAlign: 'center'}}>{error}</div>
+        }
+        {(status === 'resolved') && 
+          <ImageGallery onSearch={images} />        
+        }
+        {(status === "resolved") && (images.length > 0) && 
+            <Button onClick={this.loadMore} page={page} />
+        }
+{/* onOpenImage={this.openImage} */}
         {/* {this.state.searchText && <div>{this.state.searchText}</div>} */}
-        {/* <ImageGallery onSearch={this.state.searchQuery} onOpenImage={this.openImage}/> */}
-
-        <Button />
+       
         {/* <Modal style={{display: "none"}}/> */}
       </div>
       </>
