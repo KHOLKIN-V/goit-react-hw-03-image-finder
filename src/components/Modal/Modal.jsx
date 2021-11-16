@@ -1,9 +1,16 @@
 import React from "react";
+import { createPortal } from "react-dom/cjs/react-dom.development";
 import cs from "./Modal.module.css";
+import PropTypes from 'prop-types'
 
 const rootModal = document.querySelector("#rootModal");
 
 class Modal extends React.PureComponent {
+  static propTypes = {
+    onClose: PropTypes.func.isRequired,
+    src: PropTypes.string.isRequired,
+  };
+
   componentDidMount() {
     console.log("component did mount");
     window.addEventListener("keydown", this.handleKeyDown);
@@ -27,14 +34,15 @@ class Modal extends React.PureComponent {
   };
 
   render() {
-    return (
+    return createPortal(
       <>
-        <div className={cs.Overlay}>
+        <div className={cs.Overlay} onClick={this.handleBackdropClick}>
           <div className={cs.Modal}>
-            <img src="" alt="" />
+            <img src={this.props.src} alt="" />
           </div>
         </div>
-      </>
+      </>,
+      rootModal,
     );
   }
 }

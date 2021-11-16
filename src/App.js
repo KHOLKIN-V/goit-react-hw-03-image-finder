@@ -19,12 +19,8 @@ class App extends Component {
     overview: '',
     page: 1,
     error: "",
-
     // loading: false,
-    // modal: false,
-  
-    // modalImage: {},
-    // viewModal: false,
+    viewModal: false,
     status: "idle",
   }
 
@@ -117,7 +113,6 @@ class App extends Component {
 {/* onOpenImage={this.openImage} */}
         {/* {this.state.searchText && <div>{this.state.searchText}</div>} */}
        
-        {/* <Modal style={{display: "none"}}/> */}
       </div>
       </>
     )

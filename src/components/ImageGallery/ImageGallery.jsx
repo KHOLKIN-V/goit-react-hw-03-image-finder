@@ -1,5 +1,5 @@
 import React from "react";
-
+import PropTypes from "prop-types";
 import cs from "./ImageGallery.module.css";
 import ImageGalleryItem from "../ImageGalleryItem/ImageGalleryItem";
 
@@ -22,12 +22,8 @@ const ImageGallery = ({ onSearch }) => {
   );
 };
 
-//   Profile.propTypes = {
-//     name: PropTypes.string.isRequired,
-//     tag: PropTypes.string.isRequired,
-//     location: PropTypes.string.isRequired,
-//     avatar: PropTypes.string.isRequired,
-//     stats: PropTypes.objectOf(PropTypes.number.isRequired),
-//   };
+ImageGallery.propTypes = {
+    onSearch: PropTypes.arrayOf(PropTypes.any.isRequired),
+  };
 
 export default ImageGallery;
