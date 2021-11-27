@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
-// import { ToastContainer } from 'react-toastify';
 import Loader from "react-loader-spinner";
-// import { nanoid } from 'nanoid';
 
 import cs from './App.module.css';
 import fetchApi from "./service/fetchApi";
 import Searchbar from './components/Searchbar/Searchbar';
 import ImageGallery from './components/ImageGallery/ImageGallery';
 import Button from './components/Button/Button';
-// import Modal from './components/Modal/Modal';
-
-
 
 class App extends Component {
   state = {
