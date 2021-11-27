@@ -1,8 +1,15 @@
 import React from "react";
+import PropTypes from "prop-types";
 import cs from "./ImageGalleryItem.module.css";
 import Modal from "../Modal/Modal";
 
 class ImageGalleryItem extends React.Component {
+  static propTypes = {
+    webformatURL: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    largeImageURL: PropTypes.string.isRequired,
+  };
+
   state = {
     viewModal: false,
   };
@@ -23,13 +30,5 @@ class ImageGalleryItem extends React.Component {
     );
   }
 }
-
-//   Profile.propTypes = {
-//     name: PropTypes.string.isRequired,
-//     tag: PropTypes.string.isRequired,
-//     location: PropTypes.string.isRequired,
-//     avatar: PropTypes.string.isRequired,
-//     stats: PropTypes.objectOf(PropTypes.number.isRequired),
-//   };
 
 export default ImageGalleryItem;

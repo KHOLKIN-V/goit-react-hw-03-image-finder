@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import cs from "./Button.module.css";
 
 const Button = ({ onClick }) => {
@@ -11,12 +12,8 @@ const Button = ({ onClick }) => {
   );
 };
 
-//   Profile.propTypes = {
-//     name: PropTypes.string.isRequired,
-//     tag: PropTypes.string.isRequired,
-//     location: PropTypes.string.isRequired,
-//     avatar: PropTypes.string.isRequired,
-//     stats: PropTypes.objectOf(PropTypes.number.isRequired),
-//   };
+Button.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
 
 export default Button;

@@ -1,8 +1,13 @@
 import React, { Component } from "react";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
+import PropTypes from "prop-types";
 import cs from "./Searchbar.module.css";
 
 class Searchbar extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  };
+
   state = {
     searchQuery: "",
   };
@@ -14,16 +19,16 @@ class Searchbar extends Component {
   imageSubmit = (e) => {
     e.preventDefault();
     if (this.state.searchQuery.trim() === "") {
-      //   toast.warn("Введите запрос!", {
-      //     position: "top-right",
-      //     autoClose: 2000,
-      //     hideProgressBar: false,
-      //     closeOnClick: true,
-      //     pauseOnHover: true,
-      //     draggable: true,
-      //     progress: undefined,
-      //   });
-      return alert("Введите запрос!");
+      toast.warn("Введите запрос!", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
     }
     this.props.onSubmit(this.state.searchQuery);
     this.setState({ searchQuery: "" });
@@ -52,13 +57,5 @@ class Searchbar extends Component {
     );
   }
 }
-
-//   Profile.propTypes = {
-//     name: PropTypes.string.isRequired,
-//     tag: PropTypes.string.isRequired,
-//     location: PropTypes.string.isRequired,
-//     avatar: PropTypes.string.isRequired,
-//     stats: PropTypes.objectOf(PropTypes.number.isRequired),
-//   };
 
 export default Searchbar;

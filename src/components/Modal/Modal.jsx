@@ -1,9 +1,16 @@
 import React from "react";
+import { createPortal } from "react-dom";
+import PropTypes from "prop-types";
 import cs from "./Modal.module.css";
 
 const rootModal = document.querySelector("#rootModal");
 
 class Modal extends React.PureComponent {
+  static propTypes = {
+    onClose: PropTypes.func.isRequired,
+    src: PropTypes.string.isRequired,
+  };
+
   componentDidMount() {
     console.log("component did mount");
     window.addEventListener("keydown", this.handleKeyDown);
@@ -21,30 +28,21 @@ class Modal extends React.PureComponent {
   };
 
   handleBackdropClick = (e) => {
-    if (e.currentTarget === e.target) {
+    if (e.currentTarget !== e.target) {
       this.props.onClose();
     }
   };
 
   render() {
-    return (
-      <>
-        <div className={cs.Overlay}>
-          <div className={cs.Modal}>
-            <img src="" alt="" />
-          </div>
+    return createPortal(
+      <div className={cs.Overlay} onClick={this.handleBackdropClick}>
+        <div className={cs.Modal}>
+          <img src={this.props.src} alt="" />
         </div>
-      </>
+      </div>,
+      rootModal
     );
   }
 }
-
-//   Profile.propTypes = {
-//     name: PropTypes.string.isRequired,
-//     tag: PropTypes.string.isRequired,
-//     location: PropTypes.string.isRequired,
-//     avatar: PropTypes.string.isRequired,
-//     stats: PropTypes.objectOf(PropTypes.number.isRequired),
-//   };
 
 export default Modal;

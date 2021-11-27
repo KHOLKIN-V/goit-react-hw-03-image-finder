@@ -16,15 +16,8 @@ class App extends Component {
   state = {
     images: [],
     searchQuery: '',
-    overview: '',
     page: 1,
     error: "",
-
-    // loading: false,
-    // modal: false,
-  
-    // modalImage: {},
-    // viewModal: false,
     status: "idle",
   }
 
@@ -113,11 +106,7 @@ class App extends Component {
         }
         {(status === "resolved") && (images.length > 0) && 
             <Button onClick={this.loadMore} page={page} />
-        }
-{/* onOpenImage={this.openImage} */}
-        {/* {this.state.searchText && <div>{this.state.searchText}</div>} */}
-       
-        {/* <Modal style={{display: "none"}}/> */}
+        }       
       </div>
       </>
     )
