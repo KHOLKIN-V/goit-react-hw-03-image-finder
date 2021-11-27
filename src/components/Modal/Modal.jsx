@@ -2,6 +2,7 @@ import React from "react";
 import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 import cs from "./Modal.module.css";
+import PropTypes from "prop-types";
 
 const rootModal = document.querySelector("#rootModal");
 

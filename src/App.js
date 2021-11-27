@@ -101,7 +101,7 @@ class App extends Component {
         }
         {(status === "resolved") && (images.length > 0) && 
             <Button onClick={this.loadMore} page={page} />
-        }       
+        }
       </div>
       </>
     )

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
+
 import cs from "./Searchbar.module.css";
 
 class Searchbar extends Component {
