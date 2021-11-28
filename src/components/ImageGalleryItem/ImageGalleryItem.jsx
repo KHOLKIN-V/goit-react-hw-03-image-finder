@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import cs from "./ImageGalleryItem.module.css";
 import Modal from "../Modal/Modal";
-import PropTypes from "prop-types";
 
 class ImageGalleryItem extends React.Component {
   static propTypes = {
