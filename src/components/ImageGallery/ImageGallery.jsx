@@ -22,7 +22,13 @@ const ImageGallery = ({ onSearch }) => {
 };
 
 ImageGallery.propTypes = {
-  onSearch: PropTypes.arrayOf(PropTypes.node).isRequired,
+  onSearch: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      webformatURL: PropTypes.string.isRequired,
+      largeImageURL: PropTypes.string.isRequired,
+    })
+  ),
 };
 
 export default ImageGallery;

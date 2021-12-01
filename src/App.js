@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Loader from "react-loader-spinner";
 
 import cs from './App.module.css';
+import { mapper } from "./service/mapper";
 import fetchApi from "./service/fetchApi";
 import Searchbar from './components/Searchbar/Searchbar';
 import ImageGallery from './components/ImageGallery/ImageGallery';
@@ -18,7 +19,7 @@ class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const prevQuery = prevState.searchQuery;
-    // const prevPage = prevState.page;
+    const prevPage = prevState.page;
     const query = this.state.searchQuery;
     const page = this.state.page;
 
@@ -28,9 +29,9 @@ class App extends Component {
       this.getImages(query, page);
     }
 
-    // if (prevPage !== page && prevPage < page) {
-    //   this.getImages(query, page);
-    // }
+    if (prevPage !== page && prevPage < page) {
+      this.getImages(query, page);
+    }
   }
 
   getImages = (query, page) => {
@@ -38,11 +39,11 @@ class App extends Component {
     fetchApi(query, page)
     .then((hits) => {
       this.setState(prevState => ({
-        images: [...prevState.images, ...hits],
-        page: prevState.page + 1,
+        images: [...prevState.images, ...mapper(hits)],
+        // page: prevState.page + 1,
         status: 'resolved',
       }));
-    console.log(hits);
+    console.log(this.state.images);
     })
     .catch(({message}) => this.setState({ error: message, status: 'rejected' }))
     .finally(() => {
@@ -55,8 +56,9 @@ class App extends Component {
 
   loadMore = e => {
     e.preventDefault();
-    const {searchQuery, page} = this.state;
-    this.getImages(searchQuery, page);
+    let { page } = this.state;
+    page += 1;
+    this.setState({ page });
   }
 
   formSubmit = query => {
