@@ -7,6 +7,7 @@ import fetchApi from "./service/fetchApi";
 import Searchbar from './components/Searchbar/Searchbar';
 import ImageGallery from './components/ImageGallery/ImageGallery';
 import Button from './components/Button/Button';
+import Modal from './components/Modal/Modal';
 
 class App extends Component {
   state = {
@@ -15,13 +16,15 @@ class App extends Component {
     page: 1,
     error: "",
     status: "idle",
+    viewModal: false,
+    modalImage: "",
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const prevQuery = prevState.searchQuery;
-    const prevPage = prevState.page;
+    const prevQuery = prevState.searchQuery; 
     const query = this.state.searchQuery;
     const page = this.state.page;
+    const prevPage = prevState.page;
 
     if (prevQuery !== query) {
       
@@ -65,19 +68,19 @@ class App extends Component {
     this.setState({searchQuery: query, page: 1});
   }
 
-  modal = () => {
-    this.setState(prevState => ({
-      viewModal: !prevState.viewModal,
+  toggleModal = () => {
+    this.setState(({ viewModal }) => ({
+      viewModal: !viewModal,
     }));
   };
 
   openImage = (modalImage) => {
     this.setState({modalImage});
-    this.modal();
+    this.toggleModal();
   }
   
   render() {
-    const {status, images, error, page} = this.state;
+    const {status, images, error, page, modalImage, viewModal} = this.state;
 
     return (
       <>
@@ -99,11 +102,16 @@ class App extends Component {
           <div style={{fontWeight: '700', fontSize: '50px', textAlign: 'center'}}>{error}</div>
         }
         {(status === 'resolved') && 
-          <ImageGallery onSearch={images} />        
+          <ImageGallery onSearch={images} openImage={this.openImage} />        
         }
         {(status === "resolved") && (images.length > 0) && 
             <Button onClick={this.loadMore} page={page} />
         }
+        {viewModal && (
+          <Modal onClose={this.toggleModal}>
+            <img src={modalImage} alt='' />
+          </Modal>
+        )}
       </div>
       </>
     )

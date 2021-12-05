@@ -28,7 +28,7 @@ class Modal extends React.PureComponent {
   };
 
   handleBackdropClick = (e) => {
-    if (e.currentTarget !== e.target) {
+    if (e.currentTarget === e.target) {
       this.props.onClose();
     }
   };
@@ -36,9 +36,7 @@ class Modal extends React.PureComponent {
   render() {
     return createPortal(
       <div className={cs.Overlay} onClick={this.handleBackdropClick}>
-        <div className={cs.Modal}>
-          <img src={this.props.src} alt="" />
-        </div>
+        <div className={cs.Modal}>{this.props.children}</div>
       </div>,
       rootModal
     );

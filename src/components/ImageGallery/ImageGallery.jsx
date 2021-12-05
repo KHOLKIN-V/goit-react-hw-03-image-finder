@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import cs from "./ImageGallery.module.css";
 import ImageGalleryItem from "../ImageGalleryItem/ImageGalleryItem";
 
-const ImageGallery = ({ onSearch }) => {
+const ImageGallery = ({ onSearch, openImage }) => {
   return (
     <>
       <ul className={cs.ImageGallery}>
@@ -13,6 +13,7 @@ const ImageGallery = ({ onSearch }) => {
               webformatURL={webformatURL}
               id={id}
               largeImageURL={largeImageURL}
+              openImage={openImage}
             />
           </>
         ))}
@@ -22,6 +23,7 @@ const ImageGallery = ({ onSearch }) => {
 };
 
 ImageGallery.propTypes = {
+  openImage: PropTypes.func.isRequired,
   onSearch: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
