@@ -28,7 +28,7 @@ class App extends Component {
 
     if (prevQuery !== query) {
       
-      this.setState({ images: [] });
+      // this.setState({ images: [] });
       this.getImages(query, page);
     }
 
