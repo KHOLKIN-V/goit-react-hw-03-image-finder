@@ -28,7 +28,7 @@ class App extends Component {
 
     if (prevQuery !== query) {
       
-      // this.setState({ images: [] });
+      this.setState({ images: [] });
       this.getImages(query, page);
     }
 
@@ -104,7 +104,7 @@ class App extends Component {
         {(status === 'resolved') && 
           <ImageGallery onSearch={images} openImage={this.openImage} />        
         }
-        {(status === "resolved") && (images.length > 0) && 
+        {(images.length > 0) && 
             <Button onClick={this.loadMore} page={page} />
         }
         {viewModal && (
