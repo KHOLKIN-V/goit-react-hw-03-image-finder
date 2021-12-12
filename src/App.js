@@ -89,15 +89,6 @@ class App extends Component {
         {(status === 'idle') &&
           <div style={{fontWeight: '500', fontSize: '30px', textAlign: 'center'}}>Введите название</div>
         }
-        {(status === "pending") && 
-          <Loader
-            type="Puff"
-             color="#00BFFF"
-             height={100}
-             width={100}
-             timeout={3000} //3 secs
-          />
-        }
         {(status === 'rejected') &&
           <div style={{fontWeight: '700', fontSize: '50px', textAlign: 'center'}}>{error}</div>
         }
@@ -106,6 +97,15 @@ class App extends Component {
             <ImageGallery onSearch={images} openImage={this.openImage} />
             <Button onClick={this.loadMore} page={page} />
           </>
+        }
+        {(status === "pending") && 
+          <Loader
+            type="Puff"
+             color="#00BFFF"
+             height={100}
+             width={100}
+             timeout={3000} //3 secs
+          />
         }
         {viewModal && (
           <Modal onClose={this.toggleModal}>
