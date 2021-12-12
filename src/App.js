@@ -101,11 +101,11 @@ class App extends Component {
         {(status === 'rejected') &&
           <div style={{fontWeight: '700', fontSize: '50px', textAlign: 'center'}}>{error}</div>
         }
-        {(status === 'resolved') && 
-          <ImageGallery onSearch={images} openImage={this.openImage} />        
-        }
         {(images.length > 0) && 
+          <>
+            <ImageGallery onSearch={images} openImage={this.openImage} />
             <Button onClick={this.loadMore} page={page} />
+          </>
         }
         {viewModal && (
           <Modal onClose={this.toggleModal}>
